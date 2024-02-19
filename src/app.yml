@@ -1,0 +1,19 @@
+runtime: python312
+env: flex  
+entrypoint: gunicorn -b :$PORT prosepal.wsgi
+
+runtime_config:  # Optional section for specifying Python version
+  python_version: 3
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: "prosepal.settings"
+
+beta_settings:
+  cloud_sql_instances: "prosepal-414716:us-central1:pp-ps-tables"
+
+# Static files configuration
+handlers:
+- url: /static
+  static_dir: static/
+- url: /.*
+  script: auto

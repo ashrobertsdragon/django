@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content-container %}
+  <div class="form-container">
+    {% block content %}
+      {% include "header.html"}
+      <!-- Child template content goes here -->
+    {% endblock content %}
+  </div>
+{% endblock content-container %}

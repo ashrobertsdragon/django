@@ -1,0 +1,53 @@
+{% extends 'container-base.html' %}
+
+{% block title %}ProsePal's GPT 3.5 Finetuner{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/finetuner.css' %}">
+{% endblock extra_css %}
+{% block extra_js %}
+  <script src="{% static, 'js/finetuner.js' %}"></script>
+  <script src="{% static, 'js/invalid-input.js'}"></script>
+{% endblock extra_js %}
+
+{% block content %}
+  <div class="box hidden" id="status" role="status updates" aria-label="Status Updates">
+    <h2>Fine tuning status:</h2>
+    <p id="statusMessage"></p>
+  </div>
+  <div id="errorModal" class="modal" aria-labelledby="modalTitle" aria-describedby="errorMessage">
+    <div class="modal-content">
+      <span class="close" role="button" tabindex="0">&times;</span>
+      <h2 id="modalTitle">Error Message</h2>
+      <p id="errorMessage"></p>
+    </div>
+  </div>
+  <form class="box" method="POST" enctype="multipart/form-data" role="main">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Finetune GPT-3.5" aria-label="Submit form for finetuning">
+  </form>
+{% endblock %}
+
+{% block footer %}
+  {% include 'finetune-footer.html' %}
+{% endblock footer %}
+{% block end_js %}
+  <script>
+    function toggleVisibility() {
+      var apiKeyInput = document.getElementById("user_key");
+      var currentType = apiKeyInput.getAttribute("type");
+      apiKeyInput.setAttribute("type", currentType === "password" ? "text" : "password");
+      var visibilityImage = document.getElementById("visibilityImage");
+      if (currentType === "password") {
+    // If the password is visible, set the image to invisible.png
+        visibilityImage.src = "static/invisible.png";
+        visibilityImage.alt = "hide key"
+      } else {
+    // If the password is hidden, set the image to visibility.png
+        visibilityImage.src = "static/visibility.png";
+        visibilityImage.alt = "show key"
+      }
+    }
+  </script>
+{% endblock end_js %}
