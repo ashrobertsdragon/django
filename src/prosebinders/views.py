@@ -90,6 +90,8 @@ def contact_form(request):
   return render(request, "contact-us.html", {"form":form})
 
 def finetune(request):
+  min_size = 1024 # 1 KB
+  max_size = 1024 * 1024 # 1 MB
   if request.method == 'POST':
     form = FineTuneForm(request.POST, request.FILES)
     if form.is_valid():
@@ -99,33 +101,23 @@ def finetune(request):
         return JsonResponse({"error": "Invalid user key"}, status=400)
 
       folder_name = random_str()
-      os.makedirs(folder_name, exist_ok=True)
 
       files = request.FILES.getlist('file')
       for file in files:
+        file_size = file.size
+        if file_size < min_size or file_size > max_size:
+          return JsonResponse({"error": "Invalid file size"}, status=400)
+        if not is_utf8(file):
+          return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
         if (
           file
           and file.filename.endswith(("txt", "text"))
           and file.mimetype == "text/plain"
         ):
           random_filename = f"{random_str()}.txt"
-
-          file_path = os.path.join(folder_name, random_filename)
-          default_storage.save(f'upload_folder/{folder_name}/{random_filename}', file)
-
-          file_size = os.path.getsize(file_path)
-          min_size = 1024 # 1 KB
-          max_size = 1024 * 1024 # 1 MB
-          if file_size < min_size or file_size > max_size:
-            os.remove(file_path)
-            error_logger.error(f"{file_path} has an invalid size")
-            return JsonResponse({"error": "Invalid file size"}, status=400)
-          if not is_utf8(file_path):
-            os.remove(file_path)
-            error_logger.error(f"{file_path} is not UTF-8")
-            return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
+          default_storage.save(f'finetune/{folder_name}/{random_filename}', file)
         else:
-          error_logger.error("File is not text file")
+          return JsonResponse({"error": "File is not a text file"}, status=400)
         #threading.Thread(target=train, args=(folder_name, form.cleaned_data['role'], user_key, form.cleaned_data['chunk_type'])).start()
         return JsonResponse({"success": True, "user_folder": folder_name.split("/")[-1]})
 
@@ -148,19 +140,17 @@ def convert_ebook(request):
     if form.is_valid():
       book_title = form.cleaned_data["book_title"]
       author_name = form.cleaned_data["author_name"]
-      uploaded_file = request.FILES.getlist('file')
+      uploaded_file = request.FILES.getlist("file")
       folder_name = random_str()
 
       if uploaded_file:
         if uploaded_file.mimetype not in supported_mimetypes:
           return JsonResponse({"error": "Unsupported file type"}, status=400)
-        random_filename = random_str()
-        default_storage.save(f'upload_folder/{folder_name}/{random_filename}', uploaded_file)
-
-      if uploaded_file.mimetype == "text/plain" and not is_utf8(file_path):
-        os.remove(file_path)
-        error_logger.error(f"{file_path} is not UTF-8")
-        return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
+        if uploaded_file.mimetype == "text/plain" and not is_utf8(uploaded_file):
+          return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
+        random_filename = f"{random_str()}.txt"
+        file_path = f'convert_file/{folder_name}/{random_filename}'
+        default_storage.save(file_path, uploaded_file)
 
       metadata = {"title": book_title, "author": author_name}
       #output_file = convert_file(file_path, metadata)
