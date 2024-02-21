@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from google.oauth2 import service_account
 from dotenv import load_dotenv
