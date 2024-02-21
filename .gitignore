@@ -4,3 +4,4 @@ __pycache__/
 .git/
 .envs/
 .temp.py
+db.sqlite3
