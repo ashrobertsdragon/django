@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
+from google.oauth2 import service_account
 from dotenv import load_dotenv
-
 
 load_dotenv()
 
@@ -82,17 +82,26 @@ WSGI_APPLICATION = 'prosepal.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.environ.get('DB_NAME'),
-    'USER': os.environ.get('DB_USER'),
-    'PASSWORD': os.environ.get('DB_PASSWORD'),
-    'HOST': os.environ.get('DB_HOST'),
+    'NAME': os.environ['DATABASE_NAME'],
+    'USER': os.environ['DATABASE_USER'],
+    'PASSWORD': os.environ['DATABASE_PASSWORD'],
+    'HOST': os.environ['DATABASE_HOST'],
     'PORT': '5432',
   }
 }
+"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
 
 
 AUTH_USER_MODEL = 'prosebinders.UserTable'
@@ -132,14 +141,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_PROJECT_ID = os.environ.get('GOOGLE_CLOUD_PROJECT')  # Replace with your project ID
-GS_BUCKET_NAME = 'prosepal-user-files'
-
-MEDIA_URL = '/upload_folder/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload_folder')
-
-
 STATIC_URL = 'static/'
 # Static files (CSS, JavaScript, Images)
 STATIC_ROOT = 'static/'
@@ -148,3 +149,13 @@ STATIC_ROOT = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Set up Google Cloud Storage
+
+GS_PROJECT_ID = 'prosepal-414716'
+GS_BUCKET_NAME = 'prosepal_binders_user_files'
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file('.envs/prosepal-414716-c9896215fcd7.json')
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcs.GCSStorage'
+STATICFILES_STORAGE = None
+MEDIAFILES_STORAGE = None
