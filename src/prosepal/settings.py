@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'prosebinders',
+    'binders',
     'storages',
 ]
 
@@ -103,7 +103,7 @@ DATABASES = {
 
 
 
-AUTH_USER_MODEL = 'prosebinders.UserTable'
+AUTH_USER_MODEL = 'binders.UserTable'
 
 
 # Password validation

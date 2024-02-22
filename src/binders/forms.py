@@ -6,7 +6,7 @@ User = get_user_model()
 class AccountManagementForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ["name", "birthday", "email", ]
+    fields = ["name", "birthdate", "email", ]
 
 class LoreBinderForm(forms.Form):
   author_name = forms.CharField(max_length=30, attrs={"aria-label": "Author name for manuscript"})

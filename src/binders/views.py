@@ -8,17 +8,17 @@ from django.core.files.storage import default_storage
 
 #import stripe
 
-from prosebinders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm
-from prosebinders.models import BinderTable
-from prosebinders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_utf8
-from prosebinders.logging_config import start_loggers
+from binders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm
+from binders.models import BinderTable
+from binders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_utf8
+from binders.logging_config import start_loggers
 
 
 start_loggers()
 error_logger = logging.getLogger("error_logger")
 
 def landing_page(request):
-  return render(request, "landing_page.html")
+  return render(request, "index.html")
 
 @login_required
 def lorebinder_form(request):

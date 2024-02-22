@@ -3,7 +3,7 @@ import uuid
 from django.contrib.auth.models import AbstractUser
 from django.db import models, IntegrityError, transaction
 
-from prosebinders.utils import random_str
+from binders.utils import random_str
 
 class UserTable(AbstractUser):
   join_date = models.DateTimeField(auto_now_add=True)
