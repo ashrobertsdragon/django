@@ -5,3 +5,4 @@ __pycache__/
 .envs/
 .temp.py
 db.sqlite3
+*.log
