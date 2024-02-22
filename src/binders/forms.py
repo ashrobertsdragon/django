@@ -1,7 +1,71 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
+
+class SignupForm(UserCreationForm):
+  email = forms.EmailField(
+    required=True,
+    help_text="Required. Add a valid email address.",
+    widget=forms.EmailInput(attrs={"aria-label": "Email address"})
+  )
+  name = forms.CharField(
+    max_length=30,
+    required=True,
+    help_text='Required.',
+    widget=forms.TextInput(attrs={"aria-label": "Name"})
+  )
+  birthdate = forms.DateField(
+    label="Birthdate",
+    required=True,
+    help_text='Required for COPPA compliance.',
+    widget=forms.DateInput(attrs={"type": "date"}),
+  )
+  password = forms.CharField(
+    max_length=30,
+    label="Password",
+    required=True,
+    help_text='Required.',
+    widget=forms.PasswordInput(attrs={"aria-label": "Password"})
+  )
+
+  class Meta:
+    model = User
+    fields = ("email", "password", "name", "birthdate")
+
+  def clean_email(self):
+    email = self.cleaned_data.get('email')
+    if User.objects.filter(username=email).exists():
+      raise ValidationError("A user with that email already exists.")
+    return email
+
+  def save(self, commit=True):
+    user = super(SignupForm, self).save(commit=False)
+    user.username = self.cleaned_data['email']  # Use email as username
+    user.set_password(self.cleaned_data['password'])
+    user.first_name = self.cleaned_data.get('name', '').split(' ')[0]
+    user.last_name = ' '.join(self.cleaned_data.get('name', '').split(' ')[1:])
+    if commit:
+      user.save()
+    return user
+class CustomLoginForm(AuthenticationForm):
+  username = forms.EmailField(
+    label="Email address",
+    required=True,
+    help_text="Required. Add a valid email address.",
+    widget=forms.EmailInput(attrs={"aria-label": "Email address", "autofocus": True})
+  )
+  password = forms.CharField(
+    label="Password",
+    required=True,
+    help_text="Required.",
+    widget=forms.PasswordInput(attrs={"aria-label": "Password"})
+  )
+
+  def confirm_login_allowed(self, user):
+    super().confirm_login_allowed(user)
 
 class AccountManagementForm(forms.ModelForm):
   class Meta:

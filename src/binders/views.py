@@ -1,14 +1,15 @@
 import logging
 import os
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, FileResponse
 from django.core.files.storage import default_storage
 
-
 #import stripe
 
-from binders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm
+from binders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm, CustomLoginForm, SignupForm
 from binders.models import BindersTable
 from binders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_encoding
 from binders.logging_config import start_loggers
@@ -20,8 +21,23 @@ error_logger = logging.getLogger("error_logger")
 def landing_page(request):
   return render(request, "index.html")
 
+def signup_view(request):
+  if request.method == 'POST':
+    form = SignupForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('home')  # Redirect to a home page or another desired page
+  else:
+    form = SignupForm()
+  return render(request, 'signup.html', {'form': form})
+
+class CustomLoginView(LoginView):
+    form_class = CustomLoginForm
+    template_name = 'login.html'
+
 @login_required
-def lorebinder_form(request):
+def lorebinder_form_view(request):
   if request.method == "POST":
     form = LoreBinderForm(request.POST, request.FILES)
     if form.is_valid():
@@ -33,7 +49,7 @@ def lorebinder_form(request):
   return render(request, "lorebinder.html", {"form": form})
 
 @login_required
-def account(request):
+def account_view(request):
   section = request.GET.get("section", "profile")  # Default to "profile" section
 
   if section == "loreprosebinders":
@@ -78,7 +94,7 @@ def view_loreprosebinders(request):
 def buy_credits(request):
   pass
 
-def contact_form(request):
+def contact_form_view(request):
   form = ContactForm()
   if request.method == "POST":
     form = ContactForm(request.POST)
@@ -89,7 +105,7 @@ def contact_form(request):
       contact(email, name, message)
   return render(request, "contact-us.html", {"form":form})
 
-def finetune(request):
+def finetune_view(request):
   min_size = 1024 # 1 KB
   max_size = 1024 * 1024 # 1 MB
   if request.method == 'POST':
@@ -126,7 +142,7 @@ def finetune(request):
 
   return render(request, 'finetune.html', {'form': form})
 
-def convert_ebook(request):
+def convert_ebook_view(request):
 
   supported_mimetypes = [
   "application/epub+zip", 
