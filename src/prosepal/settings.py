@@ -141,8 +141,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-# Static files (CSS, JavaScript, Images)
-STATIC_ROOT = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -156,5 +155,3 @@ GS_BUCKET_NAME = 'prosepal_binders_user_files'
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file('.envs/prosepal-414716-c9896215fcd7.json')
 
 DEFAULT_FILE_STORAGE = 'storages.backends.gcs.GCSStorage'
-STATICFILES_STORAGE = None
-MEDIAFILES_STORAGE = None
