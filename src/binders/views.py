@@ -9,8 +9,8 @@ from django.core.files.storage import default_storage
 #import stripe
 
 from binders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm
-from binders.models import BinderTable
-from binders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_utf8
+from binders.models import BindersTable
+from binders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_encoding
 from binders.logging_config import start_loggers
 
 
@@ -60,7 +60,7 @@ def profile(request):
   return render(request, "account_management.html", {"form": form, "message": message})
 
 def view_loreprosebinders(request):
-  loreprosebinders = BinderTable.objects.filter(user=request.user)
+  loreprosebinders = BindersTable.objects.filter(user=request.user)
   lorebinder_data = []
 
   for lorebinder in loreprosebinders:
@@ -107,7 +107,7 @@ def finetune(request):
         file_size = file.size
         if file_size < min_size or file_size > max_size:
           return JsonResponse({"error": "Invalid file size"}, status=400)
-        if not is_utf8(file):
+        if not is_encoding(file, "utf-8"):
           return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
         if (
           file
@@ -146,7 +146,7 @@ def convert_ebook(request):
       if uploaded_file:
         if uploaded_file.mimetype not in supported_mimetypes:
           return JsonResponse({"error": "Unsupported file type"}, status=400)
-        if uploaded_file.mimetype == "text/plain" and not is_utf8(uploaded_file):
+        if uploaded_file.mimetype == "text/plain" and not is_encoding(uploaded_file, "utf-8"):
           return JsonResponse({"error": "Not correct kind of text file. Please resave as UTF-8"}, status=400)
         random_filename = f"{random_str()}.txt"
         file_path = f'convert_file/{folder_name}/{random_filename}'
