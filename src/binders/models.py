@@ -11,10 +11,12 @@ class UserTable(AbstractUser):
   name = models.CharField(max_length=50)
   uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
   user_folder = models.CharField(max_length=7, unique=True)
-  credits = models.IntegerField(default=0)
+  credits_available = models.IntegerField(default=0)
+  credit_used = models.IntegerField(default=0)
 
   def generate_unique_folder(self):
     self.user_folder=random_str()
+
   def save(self, *args, **kwargs):
     while True:
       if not self.user_folder:  # Generate only if not already set

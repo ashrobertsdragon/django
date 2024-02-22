@@ -70,7 +70,7 @@ class CustomLoginForm(AuthenticationForm):
 class AccountManagementForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ["name", "birthdate", "email", ]
+    fields = ["name", "birthdate", "email",]
 
 class LoreBinderForm(forms.Form):
   author_name = forms.CharField(

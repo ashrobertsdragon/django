@@ -1,16 +1,17 @@
 import logging
 import os
-from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, FileResponse
+from django.contrib.auth.views import LoginView
 from django.core.files.storage import default_storage
+from django.http import JsonResponse, FileResponse
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 #import stripe
 
 from binders.forms import AccountManagementForm, LoreBinderForm, ContactForm, FineTuneForm, ConvertEbookForm, CustomLoginForm, SignupForm
-from binders.models import BindersTable
+from binders.models import BindersTable, UserTable
 from binders.utils import process_lorebinder, check_pdf_in_storage, contact, random_str, is_encoding
 from binders.logging_config import start_loggers
 
@@ -33,8 +34,18 @@ def signup_view(request):
   return render(request, 'signup.html', {'form': form})
 
 class CustomLoginView(LoginView):
-    form_class = CustomLoginForm
-    template_name = 'login.html'
+  form_class = CustomLoginForm
+  template_name = 'login.html'
+
+  def form_valid(self, form):
+    login_response = super().form_valid(form)
+    user = form.get_user()
+    credits_available = UserTable.objects.get(user=user).credits_available
+    if credits_available >= 1:
+      return(reverse("app"))
+    else:
+      return(reverse("account:buy_credits"))
+    return login_response
 
 @login_required
 def lorebinder_form_view(request):
