@@ -25,9 +25,41 @@
   </div>
   <form class="box" method="POST" enctype="multipart/form-data" role="main">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Finetune GPT-3.5" aria-label="Submit form for finetuning">
+    <div class="opening-info">
+      <p class="info-link"><a href="{% url 'finetune_instructions' %}" target="_blank" aria-label="Read detailed instructions">Instructions</a></p>
+      <p class="info-link"><a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" title="OpenAI API keys" aria-label="Get API key from OpenAI">Get API key from OpenAI</a></p>
+    </div>
+    <div id="key">
+      {{ form.user_key.label_tag }}
+      {{ form.user_key }}
+      <button id="showButton" type="button" onclick="toggleVisibility()" aria-label="Show or hide API key text"><img id="visibilityImage" src="{% static 'images/visibility.png' %}" alt="show key"></button>
+    </div>
+    <div id="upload">
+      <p class="info-link" id="convert-link"><a href="{% url 'convert_ebook' %}" target="_blank">Convert your ebooks here</a></p>
+      {{ form.file.label_tag }}
+      {{ form.file }}
+    </div>
+    {{ form.role.label_tag }}
+    <div id="sys_role">
+      {{ form.role }}
+    </div>
+    <div id="chunk">
+      {{ form.chunk_type.label_tag }}
+      {{ form.chunk_type }}
+    </div>
+    <div id="checkboxes">
+      <div id="rights">
+        {{ form.rights_confirmation }}
+        {{ form.rights_confirmation.label_tag }}
+      </div>
+      <div id="terms">
+        {{ form.terms_agreement }}
+        <label for="terms_agreement">I agree to the <a href="{% static 'html/terms.html' %}" target="_blank">terms and conditions</a></label>
+      </div>
+    </div>
+    <input type="submit" value="Finetune GPT 3.5" class="btn btn-primary">
   </form>
+  
 {% endblock %}
 
 {% block footer %}
@@ -35,4 +67,17 @@
 {% endblock footer %}
 {% block end_js %}
   <script src="{% static 'js/visToggle.js' %}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var selectElement = document.getElementById('id_chunk_type');
+      selectElement.addEventListener('change', function() {
+        // Check if the current value is not the placeholder
+        if(this.value !== '') {
+          // Disable or remove the placeholder option
+          this.options[0].disabled = true;
+        }
+      });
+    });
+    </script>
+    
 {% endblock end_js %}

@@ -149,23 +149,31 @@ class MultipleFileField(forms.FileField):
 
 class FineTuneForm(forms.Form):
   user_key = forms.CharField(
+    label="OpenAI API key:",
     max_length=60,
-    widget=forms.PasswordInput,
+    widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'user_key'}),
     required=True
   )
   file = MultipleFileField(
+    label="Upload Text File(s) (limit 2MB per file, must be text file with three asterisks *** for chapter breaks):",
     widget=MultipleFileInput(attrs={"multiple": True, "accept": "text/plain"}),
     required=True
   )
-  role = forms.CharField(widget=forms.Textarea, required=True)
+  role = forms.CharField(
+    label="System message:",
+    widget=forms.Textarea, required=True
+    )
   chunk_type = forms.ChoiceField(
+    label="Fine tuning method",
     choices=[
+      ('', 'Choose one'), # Default but invalid choice
       ("sliding_window_small", "Sliding Window (chapter-level)"),
       ("sliding_window_large", "Sliding Window (book-level)"),
       ("dialogue_prose", "Dialogue/Prose"),
       ("generate_beats", "Generate Beats (extra cost)")
     ],
-    required=True
+    required=True,
+    initial='' # Set initial selection to "Choose One"
   )
   rights_confirmation = forms.BooleanField(required=True)
   terms_agreement = forms.BooleanField(required=True)
