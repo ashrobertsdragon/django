@@ -12,7 +12,7 @@ input, textarea {
 /* Inputs */
 input[type="file"] {
   border: none;
-}
+} 
 
 input[type="submit"] {
   text-transform: uppercase;
@@ -223,11 +223,6 @@ body.dark-mode .modal-content {
 #chunk, .metadata label {
   margin-right: .25em;
   white-space: nowrap;
-}
-
-/* Instructions */
-#closing {
-  margin-top: 50px;
 }
 
 /* Contact form */

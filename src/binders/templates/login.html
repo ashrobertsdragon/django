@@ -1,6 +1,10 @@
 {% extends "container-base.html" %}
-
+{% load static %}
 {% block title %}Login{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock extra_css %}
 
 {% block content %}
   <h2 class="content-title">Login</h2>
@@ -39,7 +43,7 @@
   </div>
 {% endblock %}
 {% block footer %}
-  {% include "footer.html" %}
+  {% include "normal-footer.html" %}
 {% endblock footer %}
 {% block end_js %}
   <script src="{% static 'js/visToggle.js' %}"></script>
