@@ -38,6 +38,9 @@
     Don't have an account? <a href="{% url 'signup' %}" id="signup-link" class="auth-switch-link">Sign Up</a>
   </div>
 {% endblock %}
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock footer %}
 {% block end_js %}
   <script src="{% static 'js/visToggle.js' %}"></script>
 {% endblock end_js %}

@@ -151,7 +151,7 @@ class FineTuneForm(forms.Form):
   user_key = forms.CharField(
     label="OpenAI API key:",
     max_length=60,
-    widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'user_key'}),
+    widget=forms.PasswordInput(attrs={"size": "60", 'id': 'user_key'}),
     required=True
   )
   file = MultipleFileField(
@@ -161,7 +161,8 @@ class FineTuneForm(forms.Form):
   )
   role = forms.CharField(
     label="System message:",
-    widget=forms.Textarea, required=True
+    widget=forms.Textarea(attrs={"rows": "5"}),
+    required=True
     )
   chunk_type = forms.ChoiceField(
     label="Fine tuning method",
@@ -179,23 +180,35 @@ class FineTuneForm(forms.Form):
   terms_agreement = forms.BooleanField(required=True)
 
 class ConvertEbookForm(forms.Form):
+  ebook = forms.FileField(
+    required=True,
+    label="Upload ebook (must be epub, pdf, docx, or text file)",
+    widget=forms.ClearableFileInput(
+      attrs={"multiple": False, "accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/epub+zip, application/pdf, text/plain"}
+    )
+  )
   book_title = forms.CharField(
+    required="True",
+    label="Title",
     max_length=50,
     widget=forms.TextInput(
       attrs={"aria-label": "Book title"}
     )
   )
   author_name = forms.CharField(
+    required=True,
+    label="Author",
     max_length=30,
     widget=forms.TextInput(
       attrs={"aria-label": "Author name for manuscript"}
     )
   )
-  file = forms.FileField(
-    widget=forms.ClearableFileInput(
-      attrs={"multiple": False, "accept": "application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/epub+zip, application/pdf, text/plain"}
-    ),
-    required=True
-  )
-  rights_confirmation = forms.BooleanField(required=True)
-  terms_agreement = forms.BooleanField(required=True)
+
+  rights_confirmation = forms.BooleanField(
+    required=True,
+    label="I confirm that I have the rights to these files"
+    )
+  terms_agreement = forms.BooleanField(
+    required=True,
+    label="I agree to the <a href='/terms' target='_blank'>terms and conditions</a>"
+    )

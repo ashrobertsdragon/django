@@ -42,7 +42,9 @@
     Already have an account? <a href="{% url 'login' %}" id="login-link">Login</a>
   </div>
 {% endblock %}
-
+{% block footer %}
+  {% include "footer.html" %}
+{% endblock footer %}
 {% block end_js %}
   <script src="{% static 'js/visToggle.js' %}"></script>
 {% endblock end_js %}

@@ -167,7 +167,7 @@ def convert_ebook_view(request):
     if form.is_valid():
       book_title = form.cleaned_data["book_title"]
       author_name = form.cleaned_data["author_name"]
-      uploaded_file = request.FILES.getlist("file")
+      uploaded_file = request.FILES.getlist("ebook")
       folder_name = random_str()
 
       if uploaded_file:
@@ -191,7 +191,7 @@ def convert_ebook_view(request):
         
       return response
   else:
-    form = FineTuneForm()
+    form = ConvertEbookForm()
 
   return render(request, 'convert-ebook.html', {'form': form})
 
