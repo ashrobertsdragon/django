@@ -35,17 +35,17 @@ section {
 }
 
 /* Footer */
-footer {
+footer, .copyright {
   display: block;
   text-align: center;
+  margin: auto;
   font-size: .75rem;
-  text-align: center;
   padding: 15px 0;
   position: relative;
   bottom: 0;
   width: 100%;
 }
-#copyright
+
 
 footer.light-mode {
   background-color: #DBE1E7;
@@ -212,6 +212,7 @@ button, input[type="submit"] {
 
 input[type="text"],
 input[type="password"],
+.userinput,
 textarea,
 select {
   font-size: .9em;
@@ -242,33 +243,6 @@ body.dark-mode .required {
 
 .shown {
   display: block; /* Displays a container */
-}
-
-/* Show Button with Eye Icon */
-button#showButton {
-  position: absolute;
-  right: -14px;
-  top: 41%;
-  transform: translateY(-50%);
-  margin: 0;
-  background-color: #DBE1E7;
-  border: none;
-  border-radius: 2px;
-  padding:  0 8px;
-  height: 66%;
-  width: 6%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10;
-}
-button#showButton:hover {
-  background-color: hsl(210, 20%, 95%) !important;
-}
-#visibilityImage {
-  height: 15px;
-  width: 15px;
-  background-color: #DBE1E7;
 }
 
 /* Responsive changes */

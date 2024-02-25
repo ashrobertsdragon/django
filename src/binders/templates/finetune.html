@@ -32,7 +32,7 @@
     <div id="key">
       {{ form.user_key.label_tag }}
       {{ form.user_key }}
-      <button id="showButton" type="button" onclick="toggleVisibility()" aria-label="Show or hide API key text"><img id="visibilityImage" src="{% static 'images/visibility.png' %}" alt="show key"></button>
+      <span class="material-symbols-outlined">visibility</span>
     </div>
     <div id="upload">
       <p class="info-link" id="convert-link"><a href="{% url 'convert_ebook' %}" target="_blank">Convert your ebooks here</a></p>

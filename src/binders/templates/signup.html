@@ -1,4 +1,5 @@
 {% extends "container-base.html" %}
+
 {% load static %}
 
 {% block title %}Signup{% endblock %}
@@ -8,71 +9,78 @@
 {% endblock extra_css %}
 
 {% block content %}
-  <h2 class="content-title">Signup</h2>
-  <form id="signup-form" class="form" method="post" action="{% url 'signup' %}">
-    {% csrf_token %}
-
-    <!-- Email Field -->
-    <div class="form-group" id="div_{{ form.email.name }}">
-      <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
-      {{ form.email }}
-      {% if form.email.help_text %}
-        <small class="form-text text-muted">{{ form.email.help_text }}</small>
-      {% endif %}
-      {% for error in form.email.errors %}
-        <div class="error">{{ error }}</div>
-      {% endfor %}
+  <div class="form box">
+    <form class="user-form" method="POST" role="main" action="{% url 'signup' %}">
+      {% csrf_token %}
+      <h1>Become a Pal to your Prose</h1>
+      <div id="required-div">
+        <h3 class="required-text">All fields are required.</h3>
+      </div>
+      <div class="input-boxes">
+        <!-- Email Field -->
+        <div class="form-grid" id="div-id_email">
+          <label class="user-input-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          {{ form.email }} <!-- Renders the email field with all attributes -->
+          {% if form.email.help_text %}
+            <small class="help-text">{{ form.email.help_text }}</small>
+          {% endif %}
+          {% for error in form.email.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+      
+        <!-- Name Field -->
+        <div class="form-grid" id="div-id_name">
+          <label class="user-input-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+          {{ form.name }} <!-- Renders the name field with all attributes -->
+          {% if form.name.help_text %}
+            <small class="help-text">{{ form.name.help_text }}</small>
+          {% endif %}
+          {% for error in form.name.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+      
+        <!-- Birthdate Field -->
+        <div class="form-grid" id="div-id_birthdate">
+          <label class="user-input-label" for="{{ form.birthdate.id_for_label }}">{{ form.birthdate.label }}</label>
+          {{ form.birthdate }} <!-- Renders the birthdate field with all attributes -->
+          {% if form.birthdate.help_text %}
+            <small class="help-text">{{ form.birthdate.help_text }}</small>
+          {% endif %}
+          {% for error in form.birthdate.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+      
+        <!-- Password Field -->
+        <div class="form-grid" id="div-id_password">
+          <label class="user-input-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+          <div class="password-container">
+            {{ form.password }} <!-- Renders the password field with all attributes -->
+            <span class="material-symbols-outlined" id="eye" onclick="toggleVisibility()">visibility</span>
+          </div>
+          {% if form.password.help_text %}
+            <small class="help-text">{{ form.password.help_text }}</small>
+          {% endif %}
+          {% for error in form.password.errors %}
+            <div class="error">{{ error }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      
+      <input type="submit" value="Signup" class="btn btn-primary">
+    </form>
+    <div class="switch-auth">
+      Already have an account?  <a href="{% url 'login' %}" id="login-link">Login</a>
     </div>
-
-    <!-- Name Field -->
-    <div class="form-group" id="div_{{ form.name.name }}">
-      <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
-      {{ form.name }}
-      {% if form.name.help_text %}
-        <small class="form-text text-muted">{{ form.name.help_text }}</small>
-      {% endif %}
-      {% for error in form.name.errors %}
-        <div class="error">{{ error }}</div>
-      {% endfor %}
-    </div>
-
-    <!-- Birthdate Field -->
-    <div class="form-group" id="div_{{ form.birthdate.name }}">
-      <label for="{{ form.birthdate.id_for_label }}" class="form-label">{{ form.birthdate.label }}</label>
-      {{ form.birthdate }}
-      {% if form.birthdate.help_text %}
-        <small class="form-text text-muted">{{ form.birthdate.help_text }}</small>
-      {% endif %}
-      {% for error in form.birthdate.errors %}
-        <div class="error">{{ error }}</div>
-      {% endfor %}
-    </div>
-
-    <!-- Password Field -->
-    <div class="form-group" id="div_{{ form.password.name }}">
-      <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
-      <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="form-control">
-      <!-- Show/Hide Password Button -->
-      <button id="showButton" type="button" onclick="toggleVisibility()" aria-label="Show or hide password">
-        <img id="visibilityImage" src="{% static 'images/visibility.png' %}" alt="Show/hide password">
-      </button>
-      {% if form.password.help_text %}
-        <small class="form-text text-muted">{{ form.password.help_text }}</small>
-      {% endif %}
-      {% for error in form.password.errors %}
-        <div class="error">{{ error }}</div>
-      {% endfor %}
-    </div>
-  
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-  </form>
-  <div class="switch-auth">
-    Already have an account? <a href="{% url 'login' %}" id="login-link">Login</a>
   </div>
 {% endblock %}
+
 {% block footer %}
   {% include "normal-footer.html" %}
 {% endblock footer %}
+
 {% block end_js %}
   <script src="{% static 'js/visToggle.js' %}"></script>
 {% endblock end_js %}

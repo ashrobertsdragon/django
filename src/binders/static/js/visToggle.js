@@ -1,6 +1,6 @@
 function toggleVisibility() {
   var apiKeyInput = document.getElementById("user_key");
-  var passwordInput = document.getElementById("password");
+  var passwordInput = document.getElementById("id_password");
 
   var inputElement = apiKeyInput ? apiKeyInput : passwordInput;
   if (inputElement) {

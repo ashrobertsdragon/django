@@ -7,28 +7,45 @@ User = get_user_model()
 
 class SignupForm(UserCreationForm):
   email = forms.EmailField(
-    required=True,
-    help_text="Required. Add a valid email address.",
-    widget=forms.EmailInput(attrs={"aria-label": "Email address"})
-  )
-  name = forms.CharField(
+    label="Email address",
     max_length=30,
     required=True,
-    help_text='Required.',
-    widget=forms.TextInput(attrs={"aria-label": "Name"})
+    help_text="Enter a valid email address",
+    widget=forms.EmailInput(attrs={
+      "aria-label": "Email address",
+      "autofocus": True,
+      "autocomplete": "email",
+      "class": "user-input"
+    })
+  )
+  name = forms.CharField(
+    label="Name",
+    max_length=30,
+    required=True,
+    help_text='Enter your full name',
+    widget=forms.TextInput(attrs={
+      "aria-label": "Name", 
+      "class": "user-input",
+      "autocomplete": "name"})
   )
   birthdate = forms.DateField(
     label="Birthdate",
     required=True,
-    help_text='Required for COPPA compliance.',
-    widget=forms.DateInput(attrs={"type": "date"}),
+    help_text='Enter your birthdate to ensure you are over 13',
+    widget=forms.DateInput(attrs={
+      "aria-label": "Birthdate", 
+      "class": "user-input",
+      "type": "date", "autocomplete": "bday"}),
   )
   password = forms.CharField(
     max_length=30,
     label="Password",
     required=True,
-    help_text='Required.',
-    widget=forms.PasswordInput(attrs={"aria-label": "Password"})
+    help_text='Create your password',
+    widget=forms.PasswordInput(attrs={
+      "aria-label": "Password",
+      "class": "user-input",
+      "autocomplete": "new-password"})
   )
 
   class Meta:
@@ -176,7 +193,10 @@ class FineTuneForm(forms.Form):
     required=True,
     initial='' # Set initial selection to "Choose One"
   )
-  rights_confirmation = forms.BooleanField(required=True)
+  rights_confirmation = forms.BooleanField(
+    required=True,
+    label="I confirm that I have the rights to use these files"
+  )
   terms_agreement = forms.BooleanField(required=True)
 
 class ConvertEbookForm(forms.Form):
