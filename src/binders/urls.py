@@ -1,11 +1,13 @@
 from django.urls import path
 from django.views.generic import TemplateView
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
   path("", views.landing_page, name="index"),  # Home/Landing page
   path('login/', views.CustomLoginView.as_view(), name='login'), # Login page
   path('signup/', views.signup_view,  name='signup'), # Sign up page
+  path('logout/', auth_views.LogoutView.as_view(), name='logout'), # Logout link
 
   path("account/", views.account_view, name="account"),  # Account management
   path("app/", views.lorebinder_form_view, name="lorebinder"),  # LoreBinders form page
