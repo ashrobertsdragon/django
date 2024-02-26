@@ -1,6 +1,7 @@
 .env
 .venv/
 __pycache__/
+migrations/
 .git/
 .envs/
 .temp.py
