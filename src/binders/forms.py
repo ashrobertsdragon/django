@@ -71,14 +71,23 @@ class CustomLoginForm(AuthenticationForm):
   username = forms.EmailField(
     label="Email address",
     required=True,
-    help_text="Required. Add a valid email address.",
-    widget=forms.EmailInput(attrs={"aria-label": "Email address", "autofocus": True})
+    help_text="Enter the email address you used to sign up",
+    widget=forms.EmailInput(attrs={
+      "aria-label": "Email address",
+      "autofocus": True,
+      "autocomplete": "email",
+      "class": "user-input"
+    })
   )
   password = forms.CharField(
     label="Password",
     required=True,
-    help_text="Required.",
-    widget=forms.PasswordInput(attrs={"aria-label": "Password"})
+    help_text="Enter your password",
+    widget=forms.PasswordInput(attrs={
+      "class": "user-input",
+      "autocomplete": "current-password",
+      "aria-label": "Password"
+    })
   )
 
   def confirm_login_allowed(self, user):

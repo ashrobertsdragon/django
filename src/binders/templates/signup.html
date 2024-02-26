@@ -20,7 +20,7 @@
         <!-- Email Field -->
         <div class="form-grid" id="div-id_email">
           <label class="user-input-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-          {{ form.email }} <!-- Renders the email field with all attributes -->
+          {{ form.email }}
           {% if form.email.help_text %}
             <small class="help-text">{{ form.email.help_text }}</small>
           {% endif %}
@@ -32,7 +32,7 @@
         <!-- Name Field -->
         <div class="form-grid" id="div-id_name">
           <label class="user-input-label" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
-          {{ form.name }} <!-- Renders the name field with all attributes -->
+          {{ form.name }}
           {% if form.name.help_text %}
             <small class="help-text">{{ form.name.help_text }}</small>
           {% endif %}
@@ -44,7 +44,7 @@
         <!-- Birthdate Field -->
         <div class="form-grid" id="div-id_birthdate">
           <label class="user-input-label" for="{{ form.birthdate.id_for_label }}">{{ form.birthdate.label }}</label>
-          {{ form.birthdate }} <!-- Renders the birthdate field with all attributes -->
+          {{ form.birthdate }}
           {% if form.birthdate.help_text %}
             <small class="help-text">{{ form.birthdate.help_text }}</small>
           {% endif %}
@@ -57,7 +57,7 @@
         <div class="form-grid" id="div-id_password">
           <label class="user-input-label" for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
           <div class="password-container">
-            {{ form.password }} <!-- Renders the password field with all attributes -->
+            {{ form.password }}
             <span class="material-symbols-outlined" id="eye" onclick="toggleVisibility()">visibility</span>
           </div>
           {% if form.password.help_text %}
