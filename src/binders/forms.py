@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
+from django.utils.safestring import mark_safe
 
 User = get_user_model()
 
@@ -177,17 +178,36 @@ class FineTuneForm(forms.Form):
   user_key = forms.CharField(
     label="OpenAI API key:",
     max_length=60,
-    widget=forms.PasswordInput(attrs={"size": "60", 'id': 'user_key'}),
+    widget=forms.PasswordInput(attrs={
+      "aria-label": "OpenAI API key",
+      "aria-required": "true",
+      "class": "user-input",
+      "size": "60",
+      'id': 'user-key'
+    }),
     required=True
   )
   file = MultipleFileField(
     label="Upload Text File(s) (limit 2MB per file, must be text file with three asterisks *** for chapter breaks):",
-    widget=MultipleFileInput(attrs={"multiple": True, "accept": "text/plain"}),
+    widget=MultipleFileInput(attrs={
+      "multiple": True,
+      "accept": "text/plain",
+      "aria-label": "Upload text file(s)",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "file-upload"
+    }),
     required=True
   )
   role = forms.CharField(
     label="System message:",
-    widget=forms.Textarea(attrs={"rows": "5"}),
+    widget=forms.Textarea(attrs={
+      "rows": "10",
+      "cols": "60",
+      "aria-label": "System message",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "role"}),
     required=True
     )
   chunk_type = forms.ChoiceField(
@@ -200,13 +220,34 @@ class FineTuneForm(forms.Form):
       ("generate_beats", "Generate Beats (extra cost)")
     ],
     required=True,
-    initial='' # Set initial selection to "Choose One"
+    initial='', # Set initial selection to "Choose One"
+    widget=forms.Select(attrs={
+      "aria-label": "Fine tuning method",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "chunk-type"
+    })
   )
   rights_confirmation = forms.BooleanField(
     required=True,
-    label="I confirm that I have the rights to use these files"
+    label="I confirm that I have the rights to these files",
+    widget=forms.CheckboxInput(attrs={
+      "aria-label": "I confirm that I have the rights to these files",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "rights"
+    })
   )
-  terms_agreement = forms.BooleanField(required=True)
+  terms_agreement = forms.BooleanField(
+    required=True,
+    label=mark_safe("I agree to the <a href='/terms' target='_blank'>terms and conditions</a>"),
+    widget=forms.CheckboxInput(attrs={
+      "aria-label": "I agree to the terms and conditions",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "terms"
+    })
+    )
 
 class ConvertEbookForm(forms.Form):
   ebook = forms.FileField(
@@ -235,9 +276,21 @@ class ConvertEbookForm(forms.Form):
 
   rights_confirmation = forms.BooleanField(
     required=True,
-    label="I confirm that I have the rights to these files"
-    )
+    label="I confirm that I have the rights to these files",
+    widget=forms.CheckboxInput(attrs={
+      "aria-label": "I confirm that I have the rights to these files",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "rights"
+    })
+  )
   terms_agreement = forms.BooleanField(
     required=True,
-    label="I agree to the <a href='/terms' target='_blank'>terms and conditions</a>"
+    label="I agree to the <a href='/terms' target='_blank'>terms and conditions</a>",
+    widget=forms.CheckboxInput(attrs={
+      "aria-label": "I agree to the terms and conditions",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "terms"
+    })
     )

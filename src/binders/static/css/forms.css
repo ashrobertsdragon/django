@@ -131,7 +131,7 @@ div {
   text-align: center;
 }
 
-/* Help-textr */
+/* Help-text */
 .help-text {
   display: none;
 }
@@ -141,36 +141,51 @@ div {
 }
 
 /* Finetuner */
+.opening-info {
+  padding-bottom: 2em;
+}
+
+
+#file_upload {
+  text-align: center;
+}
+
 #role {
-  min-height: 5em;
-  width: 100%;
-  resize: both; /* Resizable corner */
+  width: 95%;
+  height: auto;
+  resize: both;
+  margin-bottom: 2em;
 }
 
-#key {
+#chunk-type {
   display: flex;
-  align-items: center;
-  width: 100%;
-  position: relative;
-}
-#user_key {
-  flex-grow: 1;
-  margin-right: -18px;
+  justify-content: flex-end;
 }
 
-#file-upload {
-  padding: .5em 0;
+#chunk-type select {
+  width: auto;
+  margin: auto;
 }
+
+#checkboxes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 #checkboxes label {
   font-size: .8em;
   padding-top: .2em;
+  white-space: nowrap;
 }
 
 #rights, #terms {
   display: flex;
   align-items: center;
   margin-bottom: 0;
+  margin-right: auto;
   padding-bottom: 0;
+  flex-wrap: nowrap;
 }
 
 #rights input[type="checkbox"], 
@@ -365,10 +380,12 @@ input[type="email"] {
   margin: 0 auto 10px 0;
 }
 
-
-
-body.dark-mode [type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1);
+.form-grid .user-input,
+.form-grid .system-message,
+.form-grid .file-input {
+  margin-left: calc(30% + 10px); /* Align inputs with labels */
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
   right: 10px;
 }
 

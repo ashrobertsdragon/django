@@ -29,32 +29,36 @@
       <p class="info-link"><a href="{% url 'finetune_instructions' %}" target="_blank" aria-label="Read detailed instructions">Instructions</a></p>
       <p class="info-link"><a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener" title="OpenAI API keys" aria-label="Get API key from OpenAI">Get API key from OpenAI</a></p>
     </div>
-    <div id="key">
-      {{ form.user_key.label_tag }}
-      {{ form.user_key }}
-      <span class="material-symbols-outlined">visibility</span>
-    </div>
-    <div id="upload">
-      <p class="info-link" id="convert-link"><a href="{% url 'convert_ebook' %}" target="_blank">Convert your ebooks here</a></p>
-      {{ form.file.label_tag }}
-      {{ form.file }}
-    </div>
-    {{ form.role.label_tag }}
+    <div class="input-boxes">
+      <div class="form-grid" id="key">
+        <label class="user-input-label" for="{{ form.user_key.id_for_label }}">{{ form.user_key.label }}</label>
+        {{ form.user_key }}
+        <span class="material-symbols-outlined" id="eye" onclick="toggleVisibility()">visibility</span>
+      </div>
+      <p class="info-link"><a href="{% url 'convert_ebook' %}" target="_blank">Convert your ebooks here</a></p>
+      <div id="upload">
+        <label class="user-input-label" for="{{ form.file.id_for_label }}">{{ form.file.label }}</label>
+        {{ form.file }}
+      </div>
     <div id="sys_role">
+      <label class="user-input-label" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>
       {{ form.role }}
     </div>
-    <div id="chunk">
-      {{ form.chunk_type.label_tag }}
+
+    <div class="form-flex" id="chunk">
+      <label class="user-input-label" for="{{ form.chunk_type.id_for_label }}">{{ form.chunk_type.label }}</label>
       {{ form.chunk_type }}
     </div>
     <div id="checkboxes">
-      <div id="rights">
+      <div class="check-grid" id="rights">
         {{ form.rights_confirmation }}
-        {{ form.rights_confirmation.label_tag }}
+        <label for="{{ form.rights_confirmation.id_for_label }}" class="user-input-label">{{ form.rights_confirmation.label }}</label>
       </div>
-      <div id="terms">
+
+      <div class="check-grid" id="terms">
         {{ form.terms_agreement }}
-        <label for="terms_agreement">I agree to the <a href="{% static 'html/terms.html' %}" target="_blank">terms and conditions</a></label>
+        <label for="{{ form.terms_agreement.id_for_label }}" class="user-input-label">{{ form.terms_agreement.label }}</label>
+      </div>
       </div>
     </div>
     <input type="submit" value="Finetune GPT 3.5" class="btn btn-primary">

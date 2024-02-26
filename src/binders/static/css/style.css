@@ -1,15 +1,17 @@
 /* Body */
-body {
+body, button {
   font-family: 'Exo', sans-serif;
 }
 
 /* Dark Mode and Light Mode */
 body.dark-mode {
-  background-color: #1C0B19;
+  background: linear-gradient(0deg, #251126, #1c0b19);
+  background-attachment: fixed;
   color: #DBE1E7;
 }
 body.light-mode {
-  background-color: #DBE1E7;
+  background: radial-gradient(circle at 40% 40%, #d7e1e9, #dbe1e7);
+  background-attachment: fixed;
   color: #1C0B19;
 }
 
@@ -46,15 +48,37 @@ footer, .copyright {
   width: 100%;
 }
 
-
 footer.light-mode {
   background-color: #DBE1E7;
   color: #3F5C7D;
 }
 
 footer.dark-mode {
-  background-color: #1C0B19;
+  background: linear-gradient(0deg, #1c0b19, #2c2941);
   color: #DBE1E7;
+}
+
+.footer-nav,
+.copyright,
+.social-media-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap:wrap;
+  justify-content: center;
+
+}
+.footer-nav a,
+.social-media-links a {
+  padding: 5px 10px;
+}
+
+/* Google Material Symbols */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
 
 /* General styling */
@@ -197,13 +221,27 @@ input:not(:checked) + .slider:before {
 select {
   margin-left: .25em;
 }
-
 button {
-  padding: 10px 20px;
+  padding: 11px 20px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   box-shadow:  0 0 3px 1px #1C0B19;
+  display: block;
+  text-align: center;
+  width: auto;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 26px;
+  text-transform: uppercase;
+  background-color: #61b24f;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  background-color: #45b635;
 }
 
 button, input[type="submit"] {
