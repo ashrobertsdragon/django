@@ -18,17 +18,84 @@ body.light-mode {
 /* header */
 header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  height: 64px;
-  position: relative;
+  height: 32px;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 10px 20px;
+}
+
+.header-left,
+.header-nav,
+.header-right {
+  display: flex;
+  align-items: center;
 }
 
 #logo {
-  height: 64px;
-  width: 64px;
-  margin: auto;
-} 
+  height: 32px; /* Smaller logo */
+  width: auto;
+  margin-right: 10px; /* Space after logo */
+}
+
+.header-nav, .header-right, .toggle {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
+  font-size: .75em;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: .8;
+}
+
+.header-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.header-nav li {
+  padding: 0 10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #2c2941;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+body.dark-mode .dropdown-content {
+  background-color:#1c0b19;
+  color: #DBE1E7;
+}
+
+.dropbtn:focus + .dropdown-content,
+.dropdown-content:hover {
+  display: block;
+}
+
+.header-nav a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  margin-right: 10px;
+}
+.header-nav a:last-child {
+  margin-right: 0;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.account-dropdown {
+  position: relative;
+  margin-left: auto;
+}
+
 
 /* Section */
 section {
@@ -135,12 +202,14 @@ ul li {
 
 /*  containers */
 .form-container {
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
+  margin-top: 20px;
+  padding: 0 20px;
 }
 
 .body-container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   margin-top: 20px;
   padding: 0 20px;
@@ -148,8 +217,6 @@ ul li {
 
 /* Toggle Switch */
 #toggle {
-  position: absolute;
-  right: 0;
   display: flex;
   align-items: center;
   padding: 15px 0;
@@ -162,8 +229,8 @@ ul li {
   position: relative;
   display: inline-block;
   margin: 0;
-  width: 60px;
-  height: 34px;
+  width: 40px;
+  height: 22px;
   padding-bottom: 0;
 }
 .switch input { 
@@ -175,7 +242,7 @@ ul li {
   position: absolute;
   cursor: pointer;
   top: 0;
-  left: 0;
+  left: 4px;
   right: 0;
   bottom: 0;
   -webkit-transition: .4s;
@@ -185,10 +252,10 @@ ul li {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 18px;
+  width: 18px;
+  left: -6px;
+  bottom: 2px;
   border-radius: 50%;
   -webkit-transition: .4s;
   transition: .4s;
@@ -290,7 +357,11 @@ body.dark-mode .required {
   html, body {
     max-width: 95%;
   }
-  
+  .header-nav,
+  .header-right {
+    display: none; /* Adjust based on your responsive design needs */
+  }
+
   /* Header */
     .header {
     justify-content: space-between;

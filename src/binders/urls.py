@@ -8,7 +8,7 @@ urlpatterns = [
   path('signup/', views.signup_view,  name='signup'), # Sign up page
 
   path("account/", views.account_view, name="account"),  # Account management
-  path("app/", views.lorebinder_form_view, name="lore_binder"),  # LoreBinders form page
+  path("app/", views.lorebinder_form_view, name="lorebinder"),  # LoreBinders form page
   
   path("convert-ebook/", views.convert_ebook_view, name="convert_ebook"),  # Convert eBook page
   path("finetune/", views.finetune_view, name="finetune"),  # Fine-tune page

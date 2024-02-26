@@ -1,13 +1,49 @@
 {% load static %}
-  <header>
-    <a href="https://prosepal.io/" title="homepage">
+<header>
+  <div class="header-left">
+    <p><a class=header-link" href="https://prosepal.io/" title="homepage">
       <img src="{% static 'images/logo.png' %}" alt="ProsePal logo" id="logo">
-    </a>
-    <div id="toggle">
+      ProsePal
+    </a></p>
+  </div>
+  <nav class="header-nav">
+    <ul>
+      {% if user.is_authenticated %}
+        <li><a class="header-link" href="{% url 'lorebinder' %}">LoreBinders</a></li>
+      {% else %}
+        <li><a class="header-link" href="{% url 'index' %}">LoreBinders</a></li>
+      {% endif %}
+      <li class="dropdown">
+        Free Tools
+        <div class="dropdown-content">
+          <a class="header-link" href="{% url 'finetune' %}">GPT 3.5 Finetuner</a>
+          <a class="header-link" href="{% url 'convert_ebook' %}">Convert-ebook</a>
+          <a class="header-link" href="{% url 'finetune_instructions' %}">Instructions</a>
+        </div>
+      </li>
+    </ul>
+    <div class="toggle" id="toggle">
       <p id="toggleLabel">Dark mode</p>
       <label class="switch">
         <input type="checkbox" id="darkModeToggle" aria-label="Enable dark mode">
         <span class="slider round"></span>
       </label>
     </div>
-  </header> 
+  </nav>
+  <div class="header-right">
+    {% if user.is_authenticated %}
+      <div class="account-dropdown">
+        Account
+        <div class="dropdown-content">
+          <a class="header-link" href="{% url 'account' %}#profile">Profile</a>
+          <a class="header-link" href="{% url 'account' %}#buy_credits">Buy Credits</a>
+          <a class="header-link" href="{% url 'account' %}#loreprosebinders">Past Purchases</a>
+          <a class="header-link" href="#">Credits: {{ user.credits_available }}</a>
+          <a class="header-link" href="{% url 'logout' %}">Logout</a>
+        </div>
+      </div>
+    {% else %}
+      <a class="header-link" href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+  </div>
+</header>

@@ -302,7 +302,7 @@ body.dark-mode .modal-content {
   width: 100%;
   padding: 8px;
   border-radius: 4px;
-  box-shadow: 0 0 3px rgba(63, 92, 125, 1);
+  box-shadow: 0 0 3px rgb(63, 92, 125);
 }
 
 .contact-form input[type="submit"] {
@@ -380,7 +380,7 @@ input[type="email"] {
   margin: 0 auto 10px 0;
 }
 
-.form-grid .user-input,
+.form-grid #user-key,
 .form-grid .system-message,
 .form-grid .file-input {
   margin-left: calc(30% + 10px); /* Align inputs with labels */
