@@ -317,14 +317,8 @@ ul.li.credits:hover ul.li.credits {
 
 ul li.header-right {
   float: right;
-  display: flex;
-  justify-content:space-between;
   margin-bottom: 0;
   border-radius: 4px;
-}
-
-ul li.header-right ul li.toggle {
-  order: -1;
 }
 
 .dropdown-content a:hover,
@@ -474,13 +468,11 @@ footer.dark-mode {
   }
   
   #logo {
-    order: -1;
     height: 48px;
     width: 48px;
   }
 
   #toggle {
-    order: 1;
     padding: 0;
     position: static;
   }
