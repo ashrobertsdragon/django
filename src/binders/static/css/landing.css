@@ -119,7 +119,6 @@ body.dark-mode .faq-question {
 .anticipation .text-box {
   display: contents;
   margin: auto;
-
 }
 .inner-text {
   display: block;
@@ -139,6 +138,11 @@ body.dark-mode .faq-question {
 }
 .call-to-action p {
   margin-bottom: 30px
+}
+
+.anticipation-list {
+  list-style-type: '- ';
+  padding-right: 40px;
 }
 
 .features {
