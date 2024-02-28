@@ -12,11 +12,9 @@
       {% endif %}
       <li class="dropdown header-list"><a href="#">Free Tools</a>
         <ul class="dropdown-content">
-          <li class="dropdown-item free"><a href="{% url 'finetune' %}">GPT 3.5 Finetuner</a></li>
-          <ul class="nested">
-            <li class="dropdown-item sub"><a href="{% url 'finetune_instructions' %}">Instructions</a></li>
-          </ul>
-          <li class="dropdown-item free"><a href="{% url 'convert_ebook' %}">Convert-ebook</a></li>
+          <li class="dropdown-item"><a href="{% url 'finetune' %}">GPT 3.5 Finetuner</a></li>
+          <li class="dropdown-item sub"><a href="{% url 'finetune_instructions' %}">Instructions</a></li>
+          <li class="dropdown-item"><a href="{% url 'convert_ebook' %}">Convert-ebook</a></li>
         </ul>
       </li>
       <li class="header-right toggle"><div id="toggle">
@@ -32,7 +30,7 @@
             <li class="dropdown-item account"><a href="{% url 'account' %}#profile">Profile</a></li>
             <li class="dropdown-item account"><a href="{% url 'account' %}#buy_credits">Buy Credits</a></li>
             <li class="dropdown-item account"><a href="{% url 'account' %}#loreprosebinders">Past Purchases</a></li>
-            <li class="dropdown-item account credits">Credits: {{ user.credits_available }}</li>
+            <li class="dropdown-item account"><p class="credits">Credits: {{ user.credits_available }}</p></li>
             <li class="dropdown-item account"><a href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </li>
