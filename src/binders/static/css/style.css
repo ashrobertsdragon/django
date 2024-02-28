@@ -50,6 +50,7 @@ ul {
   list-style-type: '- ';
   padding-right: 40px;
 }
+
 ul li {
   margin-bottom: 20px;
   text-align: justify;
@@ -170,7 +171,7 @@ body.dark-mode .required {
     /* Global header styles */
 header {
   width: 100vw;
-  height: 60px;
+  height: 50px;
   position: fixed;
   top: 0;
   margin-left: calc(-50vw + 50%);
@@ -202,13 +203,13 @@ p.toggle-label {
 
 ul.header-menu {
   padding-inline-start: 10px;
-  margin-top: -20px;
 }
+
 ul.header-menu,
-ul.dropdown-content
+ul.dropdown-content,
 ul.nested {
   list-style-type: none;
-  margin-top: 5px;
+  margin-top: 0;
 }
 
 .dropdown {
@@ -219,6 +220,7 @@ ul.nested {
   display: none;
   position: absolute;
   background-color: #A3D8F4;
+  top: 100%;
   margin-top: 5px;
   padding: 10px 5px 10px 5px;
   transition: background-color 0.3s;
@@ -238,14 +240,23 @@ body.dark-mode .dropdown-content {
 
 .dropdown:hover .dropdown-content {
   display: block;
+  margin-top: 5px;
 }
 
-ul li.dropdown-item,
-ul li.credits {
-  padding: 5px 2px;
+ul li.logo {
+  margin-top: -15px;
+}
+
+ul li.header-list,
+ul li.header-right {
+  margin-top: -10px;
+}
+
+ul li.dropdown-item {
   width: calc(100% - 10px); 
 }
 
+ul li.logo,
 ul li.header-list,
 ul li.dropdown-item,
 ul li.credits {
@@ -254,41 +265,68 @@ ul li.credits {
   border-radius: 4px;
 }
 
+ul li.logo a,
 ul li.header-list a,
 ul li.header-right a,
+ul li.dropdown-item a,
 ul li.credits {
   display: block;
   border-radius: 4px;
-  text-align: center;
   text-decoration: none;
-  padding: 5px 16px;
+  padding: 5px 10px;
   white-space: nowrap;
 }
 
+ul li.dropdown-item,
+ul li.credits {
+  padding-right: 0;
+}
+
+ul.dropdown-content ul li.credits {
+  width: 90%;
+}
+
+ul li.free {
+  width: 5ch;
+}
+
+ul li.logo:hover,
 ul li.header-list:hover,
-ul li.dropdown-item:hover {
+ul li.header-right:hover,
+ul li.dropdown-item:hover
+ul li.credits:hover {
   background-color: #3F5C7D; /* Light mode tab hover background */
 }
 
+body.dark-mode ul li.logo:hover,
 body.dark-mode ul li.header-list:hover,
-body.dark-mode ul li.dropdown-item:hover {
+body.dark-mode ul li.header-right:hover,
+body.dark-mode ul li.dropdown-item:hover,
+body.dark-mode ul li.credits:hover {
   background-color: #4F4C6F; /* Dark mode tab hover background */
 }
 ul li.dropdown-item:hover,
 ul.li.dropdown-item:hover ul.li.dropdown-item,
 ul.li.credits:hover,
 ul.li.credits:hover ul.li.credits {
-  width: 100%;
+  width: 99%;
 }
 
 ul li.header-right {
   float: right;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  margin-bottom: 0;
+  border-radius: 4px;
 }
 
-ul li.header-right .toggle {
+ul li.header-right ul li.account {
   order: 1;
+}
+
+ul li.header-right ul li.toggle {
+  order: -1;
 }
 
 .dropdown-content a:hover {
@@ -474,6 +512,7 @@ footer.dark-mode {
     transform: translateX(24px);
   }
 
+  ul li.logo,
   ul li.header-list {
     float: none;
   }

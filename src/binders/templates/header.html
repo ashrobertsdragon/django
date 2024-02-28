@@ -2,7 +2,7 @@
 <header>
   <nav class="header-nav">
     <ul class="header-menu">
-      <li class="header-list"><a href="{% url 'index' %}" title="homepage">
+      <li class="logo"><a href="{% url 'index' %}" title="homepage">
         <img src="{% static 'images/logo.png' %}" alt="ProsePal logo" id="logo">
       </a></li>
       {% if user.is_authenticated %}
@@ -19,7 +19,7 @@
           <li class="dropdown-item free"><a href="{% url 'convert_ebook' %}">Convert-ebook</a></li>
         </ul>
       </li>
-      <li class="header-right"><div class="toggle" id="toggle">
+      <li class="header-right toggle"><div id="toggle">
         <p id="toggleLabel">Dark mode</p>
         <label class="switch">
           <input type="checkbox" id="darkModeToggle" aria-label="Enable dark mode">
