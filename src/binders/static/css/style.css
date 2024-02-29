@@ -169,7 +169,7 @@ body.dark-mode .required {
 
     /* Global header styles */
 header {
-  width: 100vw;
+  width: 100%;
   height: 50px;
   position: fixed;
   top: 0;
@@ -235,6 +235,10 @@ body.dark-mode .dropdown-content {
   box-shadow: inset 0 0 5px #DBE1E7; /* White shadow */
 }
 
+.dropdown-content.last {
+  right: 0;
+}
+
 .dropdown:hover .dropdown-content {
   display: block;
   margin-top: 5px;
@@ -249,14 +253,15 @@ ul li.header-right {
   margin-top: -10px;
 }
 
-ul li.dropdown-item {
+ul li.dropdown-item,
+ul li.credit-item {
   width: calc(100% - 10px); 
 }
 
 ul li.logo,
 ul li.header-list,
 ul li.dropdown-item,
-ul li.credits {
+ul li.credit-item {
   float: left;
   margin-bottom: 0;
   border-radius: 4px;
@@ -274,7 +279,8 @@ p.credits {
   white-space: nowrap;
 }
 
-ul li.dropdown-item {
+ul li.dropdown-item,
+ul li.credit-item {
   padding-right: 0;
 }
 
@@ -293,8 +299,7 @@ ul li.header-list:hover,
 ul li.header-right:hover,
 ul li.dropdown-item:hover,
 ul li.dropdown-item.sub:hover,
-ul li.dropdown-item.sub a:hover,
-ul li.credits:hover {
+ul li.dropdown-item.sub a:hover {
   background-color: #3F5C7D; /* Light mode tab hover background */
 }
 
@@ -303,15 +308,12 @@ body.dark-mode ul li.header-list:hover,
 body.dark-mode ul li.header-right:hover,
 body.dark-mode ul li.dropdown-item:hover,
 body.dark-mode ul li.dropdown-item.sub:hover,
-body.dark-mode ul li.dropdown-item.sub a:hover,
-body.dark-mode ul li.credits:hover {
+body.dark-mode ul li.dropdown-item.sub a:hover {
   background-color: #4F4C6F; /* Dark mode tab hover background */
 }
 
 ul li.dropdown-item:hover,
-ul.li.dropdown-item:hover ul.li.dropdown-item,
-ul.li.credits:hover,
-ul.li.credits:hover ul.li.credits {
+ul.li.dropdown-item:hover ul.li.dropdown-item {
   width: 100%;
 }
 
@@ -321,13 +323,15 @@ ul li.header-right {
   border-radius: 4px;
 }
 
-.dropdown-content a:hover,
-.dropdown-content .credits:hover {
+ul li.header-right #account {
+  margin-right: 50px;
+}
+
+.dropdown-content a:hover {
   background-color: #3F5C7D;
 }
 
-body.dark-mode .dropdown-content a:hover,
-body.dark-mode .dropdown-content .credits:hover {
+body.dark-mode .dropdown-content a:hover {
   background-color: #4F4C6F;
 }
 

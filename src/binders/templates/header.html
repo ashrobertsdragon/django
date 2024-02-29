@@ -17,6 +17,19 @@
           <li class="dropdown-item"><a href="{% url 'convert_ebook' %}">Convert-ebook</a></li>
         </ul>
       </li>
+      {% if user.is_authenticated %}
+      <li class="dropdown header-right" id="account"><a href="#">Account</a>
+        <ul class="dropdown-content last">
+          <li class="dropdown-item account"><a href="{% url 'account' %}#profile">Profile</a></li>
+          <li class="dropdown-item account"><a href="{% url 'account' %}#buy_credits">Buy Credits</a></li>
+          <li class="dropdown-item account"><a href="{% url 'account' %}#loreprosebinders">Past Purchases</a></li>
+          <li class="credit-item"><p class="credits">Credits: {{ user.credits_available }}</p></li>
+          <li class="dropdown-item account"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+      </li>
+      {% else %}
+      <li class="header-list header-right"><a href="{% url 'signup' %}">Sign Up</a></li>
+      {% endif %}
       <li class="header-right toggle"><div id="toggle">
         <p id="toggleLabel">Dark mode</p>
         <label class="switch">
@@ -24,19 +37,6 @@
           <span class="slider round"></span>
         </label>
       </div></li>
-      {% if user.is_authenticated %}
-      <li class="dropdown header-right"><a href="#">Account</a>
-        <ul class="dropdown-content">
-          <li class="dropdown-item account"><a href="{% url 'account' %}#profile">Profile</a></li>
-          <li class="dropdown-item account"><a href="{% url 'account' %}#buy_credits">Buy Credits</a></li>
-          <li class="dropdown-item account"><a href="{% url 'account' %}#loreprosebinders">Past Purchases</a></li>
-          <li class="dropdown-item account"><p class="credits">Credits: {{ user.credits_available }}</p></li>
-          <li class="dropdown-item account"><a href="{% url 'logout' %}">Logout</a></li>
-        </ul>
-      </li>
-      {% else %}
-      <li class="header-list header-right"><a href="{% url 'signup' %}">Sign Up</a></li>
-      {% endif %}
     </ul>
   </nav>
 </header>
