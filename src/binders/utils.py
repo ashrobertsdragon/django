@@ -4,6 +4,8 @@ import json
 import os
 
 import chardet
+import requests
+
 
 def is_encoding(file_path: str, encoding: str) -> bool:
   try:
@@ -60,3 +62,15 @@ def process_lorebinder(data, user):
 
 def contact(email, name, message):
   pass
+
+def check_email(user_email: str) -> bool:
+  api_key =  os.environ.get("abstract_api_key")
+  url = f"https://emailvalidation.abstractapi.com/v1/?api_key={api_key}&email={user_email}"
+  response = requests.get(url).json()
+  if response.get("deliverability") != "DELIVERABLE":
+    return False
+  if not response.get("is_valid_format", {}).get("value"):
+    return False
+  if not response.get("is_smtp_valid", {}).get("value"):
+    return False
+  return True

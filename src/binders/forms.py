@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.exceptions import ValidationError
 from django.utils.safestring import mark_safe
 
+from .utils import check_email
+
 User = get_user_model()
 
 class SignupForm(UserCreationForm):
@@ -57,6 +59,8 @@ class SignupForm(UserCreationForm):
     email = self.cleaned_data.get('email')
     if User.objects.filter(username=email).exists():
       raise ValidationError("A user with that email already exists.")
+    if email and not check_email(email):
+      raise forms.ValidationError("The email address is invalid.")
     return email
 
   def save(self, commit=True):
@@ -157,6 +161,12 @@ class ContactForm(forms.Form):
   message = forms.CharField(widget=forms.Textarea(
     attrs={"aria-label": "Your message", "rows": "5"}
     ))
+
+  def clean_email(self):
+    email = self.cleaned_data.get('email')
+    if email and not check_email(email):
+      raise forms.ValidationError("The email address is invalid.")
+    return email
 
 class MultipleFileInput(forms.ClearableFileInput):
   allow_multiple_selected = True
