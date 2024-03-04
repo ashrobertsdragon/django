@@ -149,9 +149,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Set up Google Cloud Storage
-
 GS_PROJECT_ID = 'prosepal-414716'
 GS_BUCKET_NAME = 'prosepal_binders_user_files'
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file('.envs/prosepal-414716-c9896215fcd7.json')
-
 DEFAULT_FILE_STORAGE = 'storages.backends.gcs.GCSStorage'
