@@ -67,11 +67,11 @@ class SignupForm(UserCreationForm):
     user = super(SignupForm, self).save(commit=False)
     user.username = self.cleaned_data['email']  # Use email as username
     user.set_password(self.cleaned_data['password'])
-    user.first_name = self.cleaned_data.get('name', '').split(' ')[0]
-    user.last_name = ' '.join(self.cleaned_data.get('name', '').split(' ')[1:])
+    user.name = self.cleaned_data['name']
     if commit:
       user.save()
     return user
+  
 class CustomLoginForm(AuthenticationForm):
   username = forms.EmailField(
     label="Email address",
@@ -101,7 +101,7 @@ class CustomLoginForm(AuthenticationForm):
 class AccountManagementForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ["name", "birthdate", "email",]
+    fields = ["name", "birthdate", "email", "credits_used", "credits_available", "password"]
 
 class LoreBinderForm(forms.Form):
   author_name = forms.CharField(

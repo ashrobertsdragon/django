@@ -63,14 +63,14 @@ def lorebinder_form_view(request):
 def account_view(request):
   section = request.GET.get("section", "profile")  # Default to "profile" section
 
-  if section == "loreprosebinders":
-      return view_loreprosebinders(request)
-  elif section == "profile":
-      return profile(request)
+  if section == "profile":
+    return profile(request)
+  elif section == "view_binders":
+    return view_binders(request)
   elif section == "buy_credits":
-      return buy_credits(request)
+    return buy_credits(request)
   else:
-      return redirect("account") 
+    return redirect("profile") 
 
 def profile(request):
   message = ""
@@ -84,13 +84,13 @@ def profile(request):
   else:
     form = AccountManagementForm(instance=request.user)
 
-  return render(request, "account_management.html", {"form": form, "message": message})
+  return render(request, "account.html", {"form": form, "message": message})
 
-def view_loreprosebinders(request):
-  loreprosebinders = BindersTable.objects.filter(user=request.user)
+def view_binders(request):
+  binders = BindersTable.objects.filter(user=request.user)
   lorebinder_data = []
 
-  for lorebinder in loreprosebinders:
+  for lorebinder in binders:
     pdf_path = f"{request.user.folder_name}/{lorebinder.book_title}/lorebinder-{lorebinder.book_title}.pdf"
     pdf_exists = check_pdf_in_storage(pdf_path)
 
@@ -100,7 +100,7 @@ def view_loreprosebinders(request):
       "pdf_path": pdf_path if pdf_exists else None
     })
 
-  return render(request, "loreprosebinders_list.html", {"loreprosebinders": lorebinder_data})
+  return render(request, "account.html#view_binders", {"binders": lorebinder_data})
 
 def buy_credits(request):
   pass
