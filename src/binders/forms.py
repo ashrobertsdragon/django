@@ -34,7 +34,7 @@ class SignupForm(UserCreationForm):
 
   class Meta:
     model = User
-    fields = ("email", "password", "name", "birthdate")
+    fields = ["email", "password"]
 
   def clean_email(self):
     email = self.cleaned_data.get('email')
@@ -92,7 +92,7 @@ class CustomLoginForm(AuthenticationForm):
 class AccountManagementForm(forms.ModelForm):
   class Meta:
     model = User
-    fields = ["name", "birthdate", "email", "credits_used", "credits_available", "password"]
+    fields = ["email", "credits_used", "credits_available", "password"]
 
 class LoreBinderForm(forms.Form):
   author_name = forms.CharField(

@@ -7,26 +7,26 @@ from binders.utils import random_str
 
 class UserTable(AbstractUser):
   join_date = models.DateTimeField(auto_now_add=True)
-  birthdate = models.DateField(null=True, blank=True)
-  name = models.CharField(max_length=50)
+  name = models.CharField(max_length=50, blank=True, null=True)
   uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-  user_folder = models.CharField(max_length=7, unique=True)
+  user_folder = models.CharField(max_length=7, unique=True, editable=False)
   credits_available = models.IntegerField(default=0)
   credits_used = models.IntegerField(default=0)
 
   def generate_unique_folder(self):
-    self.user_folder=random_str()
+    while True:
+      random_folder = random_str()
+      try:
+        with transaction.atomic():
+          self.user_folder = random_folder
+      except IntegrityError:
+        continue
 
   def save(self, *args, **kwargs):
     while True:
       if not self.user_folder:  # Generate only if not already set
-        self.user_folder = random_str()
-      try: # attempt to save random strin as user_folder and regenerate if already used
-        with transaction.atomic():
-          super().save(*args, **kwargs)
-          break
-      except IntegrityError:
-        continue
+        self.user_folder = self.generate_unique_folder()
+      super().save(*args, **kwargs)
 
 class BindersTable(models.Model):
   user = models.ForeignKey(UserTable, on_delete=models.CASCADE, related_name='submissions')
