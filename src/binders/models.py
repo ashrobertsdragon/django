@@ -12,7 +12,7 @@ class UserTable(AbstractUser):
   uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
   user_folder = models.CharField(max_length=7, unique=True)
   credits_available = models.IntegerField(default=0)
-  credit_used = models.IntegerField(default=0)
+  credits_used = models.IntegerField(default=0)
 
   def generate_unique_folder(self):
     self.user_folder=random_str()
