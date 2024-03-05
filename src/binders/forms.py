@@ -21,25 +21,6 @@ class SignupForm(UserCreationForm):
       "class": "user-input"
     })
   )
-  name = forms.CharField(
-    label="Name",
-    max_length=30,
-    required=True,
-    help_text='Enter your full name',
-    widget=forms.TextInput(attrs={
-      "aria-label": "Name", 
-      "class": "user-input",
-      "autocomplete": "name"})
-  )
-  birthdate = forms.DateField(
-    label="Birthdate",
-    required=True,
-    help_text='Enter your birthdate to ensure you are over 13',
-    widget=forms.DateInput(attrs={
-      "aria-label": "Birthdate", 
-      "class": "user-input",
-      "type": "date", "autocomplete": "bday"}),
-  )
   password = forms.CharField(
     max_length=30,
     label="Password",
@@ -92,6 +73,16 @@ class CustomLoginForm(AuthenticationForm):
       "class": "user-input",
       "autocomplete": "current-password",
       "aria-label": "Password"
+    })
+  )
+  terms_agreement = forms.BooleanField(
+    required=True,
+    label=mark_safe("I agree to the <a href='/terms' target='_blank'>terms and conditions</a>"),
+    widget=forms.CheckboxInput(attrs={
+      "aria-label": "I agree to the terms and conditions",
+      "aria-required": "true",
+      "class": "user-input",
+      "id": "terms"
     })
   )
 
@@ -257,7 +248,7 @@ class FineTuneForm(forms.Form):
       "class": "user-input",
       "id": "terms"
     })
-    )
+  )
 
 class ConvertEbookForm(forms.Form):
   ebook = forms.FileField(
@@ -296,11 +287,11 @@ class ConvertEbookForm(forms.Form):
   )
   terms_agreement = forms.BooleanField(
     required=True,
-    label="I agree to the <a href='/terms' target='_blank'>terms and conditions</a>",
+    label=mark_safe("I agree to the <a href='/terms' target='_blank'>terms and conditions</a>"),
     widget=forms.CheckboxInput(attrs={
       "aria-label": "I agree to the terms and conditions",
       "aria-required": "true",
       "class": "user-input",
       "id": "terms"
     })
-    )
+  )
